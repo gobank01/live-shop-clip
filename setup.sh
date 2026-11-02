@@ -12,9 +12,10 @@ if [ "$(uname -s)" = "Darwin" ]; then
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
     eval "$(/opt/homebrew/bin/brew shellenv 2>/dev/null || /usr/local/bin/brew shellenv)"
   fi
-  for pkg in ffmpeg node python; do
-    say "เช็ก/ติดตั้ง $pkg"
-    brew list "$pkg" >/dev/null 2>&1 || brew install "$pkg"
+  for pair in ffmpeg:ffmpeg node:node python3:python; do
+    cmd="${pair%%:*}"; pkg="${pair##*:}"
+    say "เช็ก/ติดตั้ง $cmd"
+    command -v "$cmd" >/dev/null || brew install "$pkg"   # มีอยู่แล้วไม่ลงซ้ำ
   done
 else
   say "ติดตั้ง ffmpeg / Node.js / Python (Linux)"

@@ -651,6 +651,11 @@ def check():
         found = shutil.which(tool) or shutil.which(tool + '.exe')
         print(('✅' if found else '❌'), tool, '' if found else f'— ยังไม่ได้ติดตั้ง {hint}')
         ok &= bool(found)
+    if shutil.which('node'):
+        v = subprocess.run(['node', '-v'], capture_output=True, text=True).stdout.strip()
+        major = int(re.sub(r'\D', '', v.split('.')[0]) or 0)
+        if major < 22:
+            print(f'❌ Node.js {v} เก่าเกินไป — ต้อง 22 ขึ้นไป (https://nodejs.org)'); ok = False
     try:
         import pythainlp  # noqa
         print('✅ pythainlp')
