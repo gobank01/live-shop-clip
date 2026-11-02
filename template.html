@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8" />
+<title>%%TITLE%% — Live Shop Clip</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600;700&family=Inter:wght@500;700;800;900&display=swap" rel="stylesheet" crossorigin="anonymous" />
+<style>
+  /* ── สีหลักของคลิป: เปลี่ยนตรงนี้ได้เลย ── */
+  :root { --red:#e5322d; --cream:#fff4e0; --brown:#6b4a2f; --gold:#f4c20f; --ink:#1a0f0a; --navy:#0c1a3d; --purple:#7b3fb8; }
+  html,body { margin:0; padding:0; background:#000; font-family:"IBM Plex Sans Thai","Inter",sans-serif; -webkit-font-smoothing:antialiased; }
+  #root { position:relative; overflow:hidden; background:#05070d; width:1080px; height:1920px; }
+  .clip { position:absolute; }
+
+  #cam { position:absolute; left:0; top:0; width:1080px; height:1920px; overflow:hidden; z-index:3;
+         transform-origin:0 0; clip-path:inset(0% 0% 0% 0% round 0px); filter:saturate(1.18) contrast(1.06); }
+  #v-main, #v-cut { left:0; top:0; width:1080px; height:1920px; object-fit:cover; }
+  #tb-text { left:0; width:1080px; top:500px; text-align:center; font-family:"Inter"; font-weight:900;
+             font-size:330px; line-height:.86; letter-spacing:-.04em; color:var(--red);
+             -webkit-text-stroke:10px #fff; paint-order:stroke fill; text-shadow:0 10px 60px rgba(0,0,0,.35); white-space:nowrap; }
+  #tb-text span { display:inline-block; }
+
+  .bgscene { z-index:2; left:0; top:0; width:1080px; height:1920px; }
+  #pip-ring { position:absolute; z-index:4; left:768px; top:194px; width:258px; height:288px; border:5px solid var(--gold);
+              border-radius:42px; box-sizing:border-box; box-shadow:0 0 40px rgba(244,194,15,.45); opacity:0; }
+  .eyebrow { position:absolute; left:60px; top:262px; font:800 28px "Inter","IBM Plex Sans Thai"; letter-spacing:.3em; }
+  .title { position:absolute; left:60px; top:300px; width:680px; font-weight:700; font-size:80px; line-height:1.12; }
+
+  #gallery { background:radial-gradient(120% 70% at 20% 10%, #fffaf0 0%, #fbe9cf 60%, #f1d6b0 100%); }
+  #gallery .eyebrow { color:var(--red); } #gallery .title { color:var(--brown); }
+  #gallery .dots { position:absolute; inset:0; opacity:.18; background-image:radial-gradient(circle at 20px 20px, var(--red) 6px, transparent 7px); background-size:90px 90px; }
+  .pol { z-index:2; width:300px; height:420px; background:#fff; border-radius:14px; padding:14px 14px 60px; box-sizing:border-box; box-shadow:0 30px 70px rgba(70,40,10,.35); }
+  .pol img { width:100%; height:100%; object-fit:cover; object-position:50% 85%; border-radius:6px; display:block; }
+  .pol b { position:absolute; left:0; right:0; bottom:14px; text-align:center; font-size:26px; color:var(--brown); }
+  .cchip { z-index:2; top:1040px; padding:14px 30px; border-radius:999px; background:var(--red); color:#fff; font-weight:700; font-size:44px; box-shadow:0 14px 34px rgba(229,50,45,.4); white-space:nowrap; }
+
+  #products { background:radial-gradient(120% 70% at 20% 10%, #1c3a7a 0%, #0c1a3d 55%, #060c1f 100%); }
+  #products .eyebrow { color:#9fd4ff; } #products .title { color:#fff; }
+  #snow i { position:absolute; top:-40px; color:#fff; opacity:.8; font-style:normal; }
+  #pnote { z-index:2; left:60px; top:410px; padding:6px 18px; border-radius:10px; background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.3); color:#cfe3ff; font-weight:600; font-size:24px; }
+  .pc { z-index:2; width:465px; height:380px; border-radius:30px; background:#fff; overflow:hidden; box-shadow:0 30px 80px rgba(0,0,0,.45); }
+  .pc img { position:absolute; left:0; top:0; width:465px; height:296px; object-fit:contain; background:#f3ece2; }
+  .pc .lb { position:absolute; left:24px; bottom:18px; font-weight:700; font-size:40px; color:var(--ink); }
+  .pc .tg { position:absolute; right:20px; bottom:26px; padding:4px 12px; border-radius:8px; background:var(--red); color:#fff; font:800 20px "Inter"; letter-spacing:.06em; }
+  .pc .tg:empty { display:none; }
+  #trip { z-index:3; left:90px; top:700px; width:900px; text-align:center; padding:30px 0; border-radius:34px; background:var(--gold); color:var(--navy); font-weight:700; font-size:66px; box-shadow:0 30px 80px rgba(0,0,0,.5); }
+  #plane { z-index:3; left:0; top:560px; font-size:150px; }
+
+  #map { background:radial-gradient(120% 70% at 20% 10%, #fffaf0 0%, #f6ead6 100%); }
+  #map .eyebrow { color:var(--red); } #map .title { color:var(--brown); }
+  #mapbox { z-index:2; left:60px; top:470px; width:960px; height:740px; border-radius:40px; overflow:hidden; background:#ece6da; box-shadow:0 30px 80px rgba(70,40,10,.3); }
+  #mapbox svg { position:absolute; left:0; top:0; }
+  .mtag { z-index:3; padding:10px 22px; border-radius:16px; color:#fff; font-weight:700; font-size:34px; white-space:nowrap; box-shadow:0 12px 30px rgba(0,0,0,.25); }
+  #tag-road { left:110px; top:1080px; background:#3a3a3a; } #tag-mrt { left:620px; top:540px; background:var(--purple); }
+  #tag-shop { left:430px; top:700px; background:var(--red); }
+  #pin { z-index:3; left:500px; top:760px; width:90px; height:120px; }
+  #pin-pulse { z-index:2; left:505px; top:850px; width:80px; height:40px; border-radius:50%; border:6px solid var(--red); box-sizing:border-box; }
+
+  #live { z-index:7; top:96px; left:40px; display:flex; align-items:center; gap:14px; padding:8px 24px 8px 8px; background:rgba(20,10,6,.55); border:1px solid rgba(255,255,255,.25); border-radius:999px; }
+  #live .pill { padding:8px 18px; border-radius:999px; background:var(--red); color:#fff; font:900 26px "Inter"; letter-spacing:.08em; }
+  #live .pill i { display:inline-block; width:14px; height:14px; border-radius:50%; background:#fff; margin-right:10px; vertical-align:2px; }
+  #live img { width:52px; height:52px; border-radius:50%; object-fit:cover; }
+  #live span { font-weight:700; font-size:28px; color:#fff; }
+  #hearts { z-index:7; left:880px; top:1560px; width:120px; height:10px; }
+  .ht { position:absolute; top:0; font-style:normal; font-size:54px; opacity:0; }
+
+  .cap { z-index:9; left:60px; width:960px; bottom:%%CAPBOTTOM%%px; text-align:center; }
+  .cap span { display:inline-block; font-weight:700; font-size:72px; line-height:1.2; }
+  .cap .w { display:inline-block; font-style:normal; margin:0 4px; color:#fff; -webkit-text-stroke:12px #000; paint-order:stroke fill; text-shadow:0 8px 24px rgba(0,0,0,.55); }
+  .cap .w b { color:var(--gold); font-size:1.12em; }
+
+  #hook1, #hook2 { z-index:5; left:0; width:1080px; text-align:center; font-weight:700; color:#fff; text-shadow:0 8px 40px rgba(0,0,0,.65); -webkit-text-stroke:3px rgba(0,0,0,.25); }
+  #hook1 { top:250px; font-size:104px; }
+  #hook2 { top:380px; font-size:150px; color:var(--gold); text-shadow:-8px 0 #ff2a55, 8px 0 #22e1ff, 0 10px 40px rgba(0,0,0,.6); }
+
+  #stamp { z-index:6; left:90px; top:230px; width:900px; height:400px; border-radius:40px; background:var(--cream); border:6px solid var(--red); box-shadow:0 30px 90px rgba(0,0,0,.45); }
+  #stamp img { position:absolute; left:40px; top:60px; width:270px; height:270px; border-radius:50%; border:6px solid var(--red); object-fit:cover; }
+  #stamp .n { position:absolute; left:340px; top:70px; width:540px; font:900 78px/1.02 "Inter","IBM Plex Sans Thai"; letter-spacing:-.03em; color:var(--brown); }
+  #stamp .n em { font-style:normal; color:var(--red); }
+  #stamp .s { position:absolute; left:344px; top:262px; width:540px; font-weight:700; font-size:38px; color:var(--brown); }
+
+  .chip { z-index:5; left:60px; padding:16px 32px; border-radius:22px; font-weight:700; font-size:50px; white-space:nowrap; box-shadow:0 14px 40px rgba(0,0,0,.35); background:var(--red); color:#fff; }
+  #chip1, #chip3 { background:var(--cream); color:var(--brown); border:4px solid var(--red); }
+  #flag { z-index:4; left:700px; top:270px; width:300px; height:200px; border-radius:18px; background:radial-gradient(circle at 50% 50%, #e5322d 0 58px, #fff 60px); box-shadow:0 16px 40px rgba(0,0,0,.35); }
+
+  #phone { z-index:5; left:60px; top:330px; width:400px; height:800px; border-radius:66px; background:#111; border:3px solid #6d6d72; box-shadow:0 40px 90px rgba(0,0,0,.6), inset 0 0 0 9px #000; overflow:hidden; }
+  #phone .scr { position:absolute; left:12px; top:12px; width:370px; height:770px; border-radius:54px; background:#fff; overflow:hidden; }
+  #phone .cover { position:absolute; left:0; top:0; width:370px; height:190px; background:linear-gradient(135deg,#fbe2c4,#f4c7a0); }
+  #phone .isl { position:absolute; left:140px; top:16px; width:90px; height:26px; border-radius:20px; background:#000; }
+  #phone .av { position:absolute; left:24px; top:130px; width:130px; height:130px; border-radius:50%; border:6px solid #fff; object-fit:cover; }
+  #phone .nm { position:absolute; left:24px; top:272px; font-weight:700; font-size:36px; color:#111; }
+  #phone .meta { position:absolute; left:24px; top:322px; font-size:22px; color:#65676b; }
+  #phone .fol { position:absolute; left:24px; top:356px; font:800 24px "Inter","IBM Plex Sans Thai"; color:#111; }
+  #phone .btn { position:absolute; left:24px; top:400px; width:322px; padding:12px 0; text-align:center; border-radius:12px; background:#1877f2; color:#fff; font-weight:700; font-size:26px; }
+  #phone .lv { position:absolute; left:24px; top:470px; font-weight:600; font-size:22px; color:var(--red); }
+  #phone .grid { position:absolute; left:12px; top:512px; width:346px; display:flex; flex-wrap:wrap; gap:6px; }
+  #phone .grid img { width:170px; height:122px; object-fit:cover; object-position:50% 80%; border-radius:6px; }
+  #phone-lbl { z-index:5; left:60px; top:1150px; width:400px; text-align:center; font:800 30px "Inter","IBM Plex Sans Thai"; color:#fff; text-shadow:0 4px 18px rgba(0,0,0,.8); }
+
+  #vf { z-index:5; left:210px; top:470px; width:640px; height:620px; }
+  #vf i { position:absolute; width:90px; height:90px; border:0 solid var(--gold); }
+  #vf i:nth-child(1){left:0;top:0;border-width:10px 0 0 10px} #vf i:nth-child(2){right:0;top:0;border-width:10px 10px 0 0}
+  #vf i:nth-child(3){left:0;bottom:0;border-width:0 0 10px 10px} #vf i:nth-child(4){right:0;bottom:0;border-width:0 10px 10px 0}
+  #zchip { z-index:5; left:190px; top:300px; width:700px; text-align:center; padding:16px 0; border-radius:999px; background:var(--red); color:#fff; font:800 40px "Inter","IBM Plex Sans Thai"; }
+
+  #badge { z-index:5; left:0; top:250px; width:1080px; text-align:center; }
+  #badge .p { display:inline-block; width:230px; height:230px; border-radius:40px; border:8px solid #fff; color:#fff; font:900 170px/230px "Inter"; box-shadow:0 20px 60px rgba(0,0,0,.45); }
+  #badge .t { margin-top:22px; font-weight:700; font-size:70px; color:#fff; -webkit-text-stroke:12px #000; paint-order:stroke fill; }
+
+  #hours { z-index:5; left:90px; top:240px; width:900px; padding:34px 0 40px; text-align:center; border-radius:40px; background:rgba(26,15,10,.88); border:4px solid var(--gold); box-shadow:0 30px 80px rgba(0,0,0,.5); }
+  #hours .d { font-weight:700; font-size:60px; color:#fff; }
+  #hours .h { font:900 128px/1.05 "Inter"; color:var(--gold); letter-spacing:-.03em; white-space:nowrap; }
+  #hours .clk { display:inline-block; width:70px; height:70px; border-radius:50%; border:7px solid #fff; position:relative; vertical-align:-10px; margin-right:16px; box-sizing:border-box; }
+  #hours .clk i { position:absolute; left:25px; top:8px; width:6px; height:24px; background:#fff; border-radius:3px; transform-origin:3px 22px; }
+
+  #cta { z-index:5; left:70px; top:220px; width:940px; height:520px; border-radius:44px; background:var(--cream); border:6px solid var(--red); box-shadow:0 30px 90px rgba(0,0,0,.45); }
+  #cta img { position:absolute; left:40px; top:40px; width:150px; height:150px; border-radius:50%; border:5px solid var(--red); object-fit:cover; }
+  #cta .n { position:absolute; left:220px; top:58px; font-weight:700; font-size:66px; color:var(--brown); white-space:nowrap; }
+  #cta .s { position:absolute; left:222px; top:140px; font-weight:600; font-size:30px; color:var(--red); }
+  #cta .bar { position:absolute; left:40px; top:230px; width:860px; height:96px; border-radius:48px; background:#fff; border:3px solid #e2d3bd; }
+  #cta .bar .q { position:absolute; left:34px; top:22px; font-size:44px; }
+  #cta .bar .tx { position:absolute; left:110px; top:20px; font-weight:700; font-size:44px; color:#222; white-space:nowrap; }
+  #cta .bar .caret { display:inline-block; width:4px; height:46px; background:var(--red); vertical-align:-8px; margin-left:4px; }
+  #cta .soc { position:absolute; left:40px; top:362px; width:860px; display:flex; gap:16px; }
+  #cta .soc span { flex:1; padding:16px 0; text-align:center; border-radius:20px; color:#fff; font:800 30px "Inter","IBM Plex Sans Thai"; }
+
+  #outro { z-index:10; left:0; top:0; width:1080px; height:1920px; background:radial-gradient(110% 70% at 50% 30%, #fffaf0 0%, #fbe6c8 70%, #f2cfa2 100%); }
+  #outro img { position:absolute; left:340px; top:330px; width:400px; height:400px; border-radius:50%; border:10px solid var(--red); box-shadow:0 30px 80px rgba(120,60,20,.35); object-fit:cover; }
+  #outro .n { position:absolute; left:0; width:1080px; top:780px; text-align:center; font-weight:700; font-size:92px; color:var(--brown); }
+  #outro .tag { position:absolute; left:0; width:1080px; top:900px; text-align:center; font-weight:600; font-size:44px; color:var(--red); }
+  #outro .info { position:absolute; left:140px; width:800px; top:1000px; font-weight:600; font-size:40px; color:var(--brown); line-height:1.75; }
+  #outro .box { position:absolute; left:120px; width:840px; top:1260px; padding:24px 0; text-align:center; border-radius:28px; background:var(--red); }
+  #outro .box small { display:block; font-weight:700; font-size:28px; letter-spacing:.12em; color:#ffe1c4; }
+  #outro .box b { font-weight:700; font-size:46px; line-height:1.45; color:#fff; }
+
+  #stage { position:absolute; left:0; top:0; width:1080px; height:1920px; }
+  #flash { position:absolute; inset:0; background:#fff; opacity:0; z-index:11; pointer-events:none; }
+  #grain { position:absolute; left:-200px; top:-200px; width:1480px; height:2320px; z-index:8; opacity:.08; pointer-events:none;
+           background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='300'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='300' height='300' filter='url(%23n)'/></svg>"); }
+  #vig { position:absolute; inset:0; z-index:8; pointer-events:none; background:radial-gradient(120% 80% at 50% 45%, transparent 55%, rgba(0,0,0,.5) 100%); }
+  .lbox { position:absolute; left:0; width:1080px; height:0; background:#000; z-index:8; }
+  #barT { top:0; } #barB { bottom:0; }
+  .ex { z-index:12; pointer-events:none; }
+  #ex-core { left:390px; top:750px; width:300px; height:300px; border-radius:50%; background:radial-gradient(circle, #fff 0%, #fff6c0 18%, #ffcf3a 34%, #ff7a1a 52%, #e0260f 68%, rgba(120,10,0,0) 80%); }
+  .ex-ring { left:440px; top:800px; width:200px; height:200px; border-radius:50%; border:18px solid #ffb02e; box-sizing:border-box; box-shadow:0 0 60px #ff7a1a, inset 0 0 40px #ffd75e; }
+  #ex-debris { left:0; top:0; width:1080px; height:1920px; }
+  #ex-debris i { position:absolute; left:532px; top:892px; border-radius:50%; font-style:normal; }
+</style>
+</head>
+<body>
+<div id="root" data-composition-id="root" data-start="0" data-duration="%%TOTAL%%" data-width="1080" data-height="1920">
+  <audio id="a-main" class="clip" data-start="0" data-duration="%%MAIN%%" data-track-index="1" data-volume="1" src="edit.mp4"></audio>
+  <audio id="a-bgm" class="clip" data-start="0" data-duration="%%TOTAL%%" data-track-index="2" data-volume="%%BGMVOL%%" src="%%BGM%%"></audio>
+  <div id="stage">
+    <div id="cam">
+      <video id="v-main" class="clip" data-start="0" data-duration="%%MAIN%%" data-track-index="0" src="edit.mp4" muted playsinline></video>
+      %%CAM%%
+    </div>
+    <div id="pip-ring"></div>
+    %%BODY%%
+    <div id="grain"></div><div id="vig"></div><div id="barT" class="lbox"></div><div id="barB" class="lbox"></div>
+  </div>
+  <div id="flash"></div>
+  %%TOP%%
+<script src="gsap.min.js"></script>
+<script>
+window.__timelines = window.__timelines || {};
+const tl = gsap.timeline({ paused: true });
+const CAPS = %%CAPS%%, MAIN = %%MAIN%%, FX = %%FX%%;
+
+// ซับ: คำเด้งทีละคำ + คีย์เวิร์ดสีเหลืองเด้งซ้ำ
+CAPS.forEach((t, i) => {
+  const ws = document.querySelectorAll("#c" + i + " .w"), end = (CAPS[i + 1] ?? t + 3) - t;
+  tl.from(ws, { y: 50, scale: .5, opacity: 0, duration: .2, ease: "back.out(2.6)", stagger: Math.min(.16, end * .55 / Math.max(ws.length, 1)) }, t);
+  document.querySelectorAll("#c" + i + " .w b").forEach(b => tl.fromTo(b, { scale: 1 }, { scale: 1.18, duration: .14, yoyo: true, repeat: 1, ease: "power2.out" }, t + .25));
+});
+
+// ไลฟ์: ป้าย LIVE กระพริบ + หัวใจลอย
+tl.from("#live", { x: -60, opacity: 0, duration: .5, ease: "back.out(1.8)" }, .3);
+tl.to("#live .pill i", { opacity: .15, duration: .5, yoyo: true, repeat: Math.floor(MAIN), ease: "steps(1)" }, .3);
+document.querySelectorAll("#hearts .ht").forEach((el, i) => {
+  const t = .4 + i * .43, dx = ((i * 53) % 120) - 60;
+  tl.fromTo(el, { y: 0, x: 0, scale: .4, opacity: 0 }, { y: -560, x: dx, scale: 1.1, opacity: 1, duration: .6, ease: "power1.out" }, t);
+  tl.to(el, { y: -760, opacity: 0, duration: .9, ease: "power1.in" }, t + .6);
+});
+
+// กล้องย่อเป็นจอเล็กมุมขวาบน (เผยฉากด้านหลัง)
+const PIP = { scale: .3, x: 735, y: 96, clipPath: "inset(%%PIPCROP%% round 120px)" };
+const FULL = { scale: 1, x: 0, y: 0, clipPath: "inset(0% 0% 0% 0% round 0px)" };
+function pipIn(t)  { tl.to("#cam", { ...PIP, duration: .6, ease: "power3.inOut" }, t); tl.fromTo("#pip-ring", { opacity: 0, scale: .8 }, { opacity: 1, scale: 1, duration: .3, ease: "back.out(2)" }, t + .45); }
+function pipOut(t) { tl.to("#pip-ring", { opacity: 0, duration: .1 }, t); tl.to("#cam", { ...FULL, duration: .55, ease: "power3.inOut" }, t); }
+
+// ── ฉากต่างๆ (สร้างจาก project.json)
+%%JS%%
+
+// ── ปิดท้าย: ชาร์จ → ระเบิด → หน้าร้าน
+tl.to("#cam", { scale: 1.16, x: -86.4, y: -140, duration: .6, ease: "power2.in" }, MAIN - .63);
+tl.to("#stage", { x: 6, duration: .03, yoyo: true, repeat: 17, ease: "steps(1)" }, MAIN - .58);
+tl.fromTo("#ex-core", { scale: .1, opacity: 1 }, { scale: 9, duration: .55, ease: "expo.out" }, MAIN - .03);
+tl.to("#ex-core", { opacity: 0, duration: .45, ease: "power2.in" }, MAIN + .47);
+tl.fromTo("#ex-ring1", { scale: .2, opacity: 1 }, { scale: 9, opacity: 0, duration: .9, ease: "expo.out" }, MAIN - .03);
+tl.fromTo("#ex-ring2", { scale: .2, opacity: .9 }, { scale: 7, opacity: 0, duration: .9, ease: "expo.out" }, MAIN + .07);
+document.querySelectorAll("#ex-debris i").forEach((el, i) => {
+  const a = i * 2.39996, d = 520 + (i * 137) % 560;
+  tl.fromTo(el, { x: 0, y: 0, rotation: 0, opacity: 1 },
+    { x: Math.cos(a) * d, y: Math.sin(a) * d + 160, rotation: (i % 2 ? 1 : -1) * (360 + i * 40), opacity: 0, duration: 1.1 + (i % 4) * .05, ease: "expo.out" }, MAIN - .03);
+});
+tl.from("#outro", { opacity: 0, duration: .2 }, MAIN);
+tl.from("#outro img", { scale: 2.4, rotation: -90, opacity: 0, duration: .6, ease: "back.out(1.6)" }, MAIN + .37);
+tl.from("#outro .n, #outro .tag", { y: 24, opacity: 0, duration: .4, stagger: .12 }, MAIN + .67);
+tl.from("#outro .info", { x: -40, opacity: 0, duration: .4 }, MAIN + 1.07);
+tl.from("#outro .box", { y: 60, scale: .85, opacity: 0, duration: .5, ease: "back.out(2)" }, MAIN + 1.37);
+tl.to("#outro .box", { scale: 1.05, duration: .35, yoyo: true, repeat: 3, ease: "sine.inOut" }, MAIN + 2.17);
+
+// ── ความมัน: จอสั่น / แฟลช / พุ่งเข้า / เกรนฟิล์ม
+function shake(t, a = 26, n = 7) {
+  for (let i = 0; i < n; i++) { const k = 1 - i / n, s = i % 2 ? -1 : 1;
+    tl.to("#stage", { x: s * a * k, y: -s * a * .6 * k, duration: .035, ease: "none" }, t + i * .035); }
+  tl.to("#stage", { x: 0, y: 0, duration: .05, ease: "none" }, t + n * .035);
+}
+function flash(t, o = .85) { tl.fromTo("#flash", { opacity: o }, { opacity: 0, duration: .35, ease: "power2.out" }, t); }
+function punch(t, s = 1.1) { tl.fromTo("#stage", { scale: s }, { scale: 1, duration: .45, ease: "expo.out", transformOrigin: "50% 45%" }, t); }
+FX.shake.forEach(t => shake(t)); FX.flash.forEach(t => flash(t)); FX.punch.forEach(t => punch(t));
+shake(MAIN - .03, 70, 14); flash(MAIN - .03, 1);
+tl.fromTo("#grain", { x: 0, y: 0 }, { x: -180, y: 140, duration: MAIN, ease: "steps(500)" }, 0);
+
+window.__timelines["root"] = tl;
+</script>
+</div>
+</body>
+</html>

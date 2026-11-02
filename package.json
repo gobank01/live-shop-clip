@@ -1,0 +1,8 @@
+{
+  "name": "live-shop-clip",
+  "private": true,
+  "description": "ตัดคลิปรีวิวร้านแนวไลฟ์สดอัตโนมัติ",
+  "dependencies": {
+    "hyperframes": "0.9.0"
+  }
+}

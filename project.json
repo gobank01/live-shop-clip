@@ -1,0 +1,89 @@
+{
+  "video": "input/raw.mp4",
+  "output_name": "miki-from-japan-live",
+
+  "cut": {
+    "auto_silence": true,
+    "silence_db": -32,
+    "min_silence": 0.28,
+    "remove": ["จะมาจะจะไปช้อปปิ้งนะคะเอ้ยจะไปเที่ยวต่างประเทศนะ"]
+  },
+
+  "shop": {
+    "name": "มิกิ from japan",
+    "logo": "input/logo.jpg",
+    "tagline": "สินค้านำเข้าจากญี่ปุ่น มือ 1",
+    "category": "ร้านขายเสื้อผ้า · นนทบุรี",
+    "followers": "327K ผู้ติดตาม",
+    "live": "🔴 LIVE สด ทุก ศ. ส. อา.",
+    "location": "📍 บางใหญ่ นนทบุรี · สาขาเดียว",
+    "hours": "10:00–22:00",
+    "search": "มิกิ from japan",
+    "socials": [
+      {"name": "Facebook", "color": "#1877f2"},
+      {"name": "IG", "color": "#d62976"},
+      {"name": "TikTok", "color": "#111111"},
+      {"name": "LINE", "color": "#06c755"}
+    ],
+    "info": [
+      "📍 หน้าร้านบางใหญ่ นนทบุรี · สาขาเดียว",
+      "🕙 เปิดทุกวัน 10:00–22:00 น.",
+      "🔴 LIVE สด ทุก ศุกร์ · เสาร์ · อาทิตย์"
+    ],
+    "follow": ["FB มิกิ from japan", "IG @mikijapan.shop", "LINE @mikijapan"]
+  },
+
+  "keywords": ["Miki", "from", "Japan", "มิกิ", "ญี่ปุ่น", "มือหนึ่ง", "เพจ", "เสื้อผ้า", "ของใช้", "เบ็ดเตล็ด",
+               "ช้อปปิ้ง", "เสื้อกันหนาว", "เสื้อไหมพรม", "โค้ท", "สเวตเตอร์", "ต่างประเทศ", "หน้าร้าน",
+               "บางใหญ่", "นนทบุรี", "ถนนใหญ่", "รถไฟฟ้า", "MRT", "สายสีม่วง", "ลานจอดรถ", "กว้างขวาง",
+               "ทุกวัน", "สิบโมง", "สี่ทุ่ม"],
+
+  "scenes": [
+    {"type": "hook", "lines": ["ของญี่ปุ่นมือ 1", "ช้อปที่ไหนดี?"], "until": "Miki"},
+    {"type": "stamp", "when": "Miki", "title": ["MIKI", "FROM JAPAN"], "sub": "🇯🇵 สินค้านำเข้าจากญี่ปุ่น มือ 1"},
+    {"type": "chips", "flag": true, "until": "ลองเข้าไป", "items": [
+      {"when": "สนใจ", "text": "✓ มือ 1 ของใหม่"},
+      {"when": "นำเข้า", "text": "🇯🇵 นำเข้าจากญี่ปุ่น"}
+    ]},
+    {"type": "page", "when": "ลองเข้าไปตามเพจ", "until": "แหล่งรวม",
+     "photos": ["input/photos/1.jpg", "input/photos/2.jpg", "input/photos/3.jpg", "input/photos/4.jpg"]},
+    {"type": "gallery", "when": "แหล่งรวม", "until": "ถ้าคิดจะ",
+     "eyebrow": "MIKI FROM JAPAN 🇯🇵", "title": "แหล่งรวมของญี่ปุ่น มือ 1",
+     "photos": [
+       {"src": "input/photos/1.jpg", "label": "หน้าร้านบางใหญ่"},
+       {"src": "input/photos/2.jpg", "label": "ของเข้าใหม่ทุกวัน"},
+       {"src": "input/photos/5.jpg", "label": "ช้อปเพลินทั้งร้าน"}
+     ],
+     "tags": [
+       {"when": "เสื้อผ้า", "text": "👗 เสื้อผ้า"},
+       {"when": "ของใช้", "text": "🏠 ของใช้"},
+       {"when": "เบ็ดเตล็ด", "text": "🎁 เบ็ดเตล็ด"}
+     ]},
+    {"type": "zoom", "when": "ถ้าคิดจะ", "until": "แวะ", "text": "🛍️ ช้อปของญี่ปุ่นมือ 1"},
+    {"type": "behind", "when": "แวะ", "text": "MIKI", "dur": 2.6},
+    {"type": "products", "when": "ที่แนะนำ", "until": "ลองเข้าไปดู",
+     "eyebrow": "WINTER COLLECTION ❄", "title": "ต้อนรับหน้าหนาว", "note": "ตัวอย่างสินค้า · สินค้าจริงดูได้ที่ร้าน",
+     "items": [
+       {"when": "เสื้อกันหนาว", "img": "examples/miki-from-japan/products/jacket.png", "label": "เสื้อกันหนาว", "tag": "JAPAN"},
+       {"when": "ไหมพรม", "img": "examples/miki-from-japan/products/knit.png", "label": "เสื้อไหมพรม", "tag": "JAPAN"},
+       {"when": "โค้ท", "img": "examples/miki-from-japan/products/coat.png", "label": "โค้ท", "tag": "JAPAN"},
+       {"when": "สเวตเตอร์", "img": "examples/miki-from-japan/products/sweater.png", "label": "สเวตเตอร์", "tag": "JAPAN"}
+     ],
+     "trip": {"when": "ใครมีแพลน", "text": "✈ ไปเที่ยวหนาว ต้องมี!"}},
+    {"type": "map", "when": "เปิดอยู่ที่", "until": "ที่สำคัญ",
+     "eyebrow": "📍 หน้าร้าน · สาขาเดียว", "title": "บางใหญ่ นนทบุรี",
+     "road": {"when": "ติดถนน", "label": "🛣 ติดถนนใหญ่"},
+     "train": {"when": "รถไฟฟ้า", "label": "🚇 MRT สายสีม่วง"}},
+    {"type": "badge", "when": "ลานจอดรถ", "icon": "P", "text": "ลานจอดรถกว้างขวาง"},
+    {"type": "hours", "when": "เปิดทุกวัน", "day": "เปิดทุกวัน", "time": "10:00–22:00"},
+    {"type": "cta", "when": "แวะกันมา"}
+  ],
+
+  "style": {
+    "caption_bottom": 520,
+    "face": [520, 800],
+    "pip_crop": "18% 12% 34% 12%"
+  },
+  "bgm": "assets/bgm.mp3",
+  "bgm_volume": 0.09
+}

@@ -1,0 +1,13 @@
+# ของลูกค้าแต่ละคน (ไม่ขึ้น git)
+input/*
+!input/README.txt
+.env
+captions.json
+work/
+output/
+# เครื่องมือที่ตัวติดตั้งโหลดมา
+node_modules/
+.venv/
+.browsers/
+__pycache__/
+.DS_Store
